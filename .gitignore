@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database (local SQLite — schema/migrations are in git, data is not)
+db/*.db
+db/*.db-journal
+db/*.db-wal
+db/*.db-shm
