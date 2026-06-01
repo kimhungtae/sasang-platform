@@ -16,6 +16,7 @@ CREATE TABLE `choices` (
 	`order` integer NOT NULL,
 	`label` text NOT NULL,
 	`constitution_key` integer,
+	`effects_json` text,
 	FOREIGN KEY (`question_id`) REFERENCES `questions`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -86,13 +87,19 @@ CREATE TABLE `questions` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`qnaire_id` integer NOT NULL,
 	`order` integer NOT NULL,
+	`section` text,
+	`code` text,
 	`text` text NOT NULL,
+	`tag` text,
 	`type` text DEFAULT 'single' NOT NULL,
 	`is_core` integer DEFAULT false NOT NULL,
+	`confirm_constitution` text,
+	`effects_json` text,
 	FOREIGN KEY (`qnaire_id`) REFERENCES `questionnaires`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE INDEX `questions_qnaire_order_idx` ON `questions` (`qnaire_id`,`order`);--> statement-breakpoint
+CREATE INDEX `questions_section_idx` ON `questions` (`section`);--> statement-breakpoint
 CREATE TABLE `responses` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`user_id` integer,
@@ -110,6 +117,7 @@ CREATE TABLE `results` (
 	`top` text NOT NULL,
 	`second` text,
 	`scores_json` text NOT NULL,
+	`hanyul` text,
 	`confidence` real NOT NULL,
 	`created_at` integer DEFAULT (unixepoch()) NOT NULL,
 	FOREIGN KEY (`response_id`) REFERENCES `responses`(`id`) ON UPDATE no action ON DELETE cascade

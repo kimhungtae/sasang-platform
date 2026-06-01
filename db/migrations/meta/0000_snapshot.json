@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "bc0a9a88-f267-463c-a6ba-4ec62564c335",
+  "id": "713c8d02-12ce-40d0-aa29-7283a0715a4b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "answers": {
@@ -131,6 +131,13 @@
         "constitution_key": {
           "name": "constitution_key",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "effects_json": {
+          "name": "effects_json",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -588,11 +595,32 @@
           "notNull": true,
           "autoincrement": false
         },
+        "section": {
+          "name": "section",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "text": {
           "name": "text",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "type": {
@@ -610,6 +638,20 @@
           "notNull": true,
           "autoincrement": false,
           "default": false
+        },
+        "confirm_constitution": {
+          "name": "confirm_constitution",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "effects_json": {
+          "name": "effects_json",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -618,6 +660,13 @@
           "columns": [
             "qnaire_id",
             "order"
+          ],
+          "isUnique": false
+        },
+        "questions_section_idx": {
+          "name": "questions_section_idx",
+          "columns": [
+            "section"
           ],
           "isUnique": false
         }
@@ -758,6 +807,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "hanyul": {
+          "name": "hanyul",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "confidence": {

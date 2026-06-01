@@ -1,0 +1,376 @@
+{
+  "type": "adult28",
+  "version": "v23",
+  "title": "사상체질 감별 설문지",
+  "description": "성인용 28문항 사상체질 감별 설문. 1989년 경희대학교 대학원 한의학과 체질의학전공 석사학위 논문 \"사상체질감별을 위한 전문가 시스템의 지식베이스 구축에 관한 연구\" 기반. 자신에 해당되는 항목을 모두 선택하되, 되도록 하나만 선택하는 것이 좋습니다.",
+  "sourceFile": "onnuriclinic-web/사상의학/체질설문지.txt",
+  "constitutionMapping": {
+    "1": "ty",
+    "2": "te",
+    "3": "sy",
+    "4": "se"
+  },
+  "scoringHint": "70% 이상이면 해당 체질 확률 높음. 비슷하면 전문가 진단 권장.",
+  "questions": [
+    {
+      "order": 1,
+      "text": "체격은 어떠합니까?",
+      "type": "single",
+      "isCore": true,
+      "choices": [
+        { "order": 1, "label": "목덜미가 굵고 허리부위가 가늘다.", "constitutionKey": 1 },
+        { "order": 2, "label": "허리부위가 굵고 목덜미가 가늘다.", "constitutionKey": 2 },
+        { "order": 3, "label": "가슴부위가 넓고 엉덩이부위가 작다.", "constitutionKey": 3 },
+        { "order": 4, "label": "엉덩이부위가 크고 가슴부위가 좁다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 2,
+      "text": "용모는 어떠합니까?",
+      "type": "single",
+      "isCore": true,
+      "choices": [
+        { "order": 1, "label": "건장하고 어깨 위가 발달하였다.", "constitutionKey": 1 },
+        { "order": 2, "label": "비만하고 체구가 큰 편이다.", "constitutionKey": 2 },
+        { "order": 3, "label": "날세고 가슴부위가 발달하였다.", "constitutionKey": 3 },
+        { "order": 4, "label": "단정하며 체구가 적다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 3,
+      "text": "일을 할 때 어떻게 처리합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "막힘없이 시원스럽게 한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "끝까지 꾸준하게 한다.", "constitutionKey": 2 },
+        { "order": 3, "label": "창의적이고 솔직하다.", "constitutionKey": 3 },
+        { "order": 4, "label": "세밀하고 꼼꼼하게 한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 4,
+      "text": "어떤 일에 유능합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "낯선 사람과도 쉽게 어울린다.", "constitutionKey": 1 },
+        { "order": 2, "label": "느긋하며 잘 받아들인다.", "constitutionKey": 2 },
+        { "order": 3, "label": "옳지 않은 것을 보면 참지 못한다.", "constitutionKey": 3 },
+        { "order": 4, "label": "정확하고 빈틈없이 처리한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 5,
+      "text": "자신은 어디에 속합니까?",
+      "type": "single",
+      "isCore": true,
+      "choices": [
+        { "order": 1, "label": "진취적이고 추진력이 강하다.", "constitutionKey": 1 },
+        { "order": 2, "label": "행동은 느리지만 꾸준하다.", "constitutionKey": 2 },
+        { "order": 3, "label": "여러 일을 벌려놓으나 마무리는 약하다.", "constitutionKey": 3 },
+        { "order": 4, "label": "행동보다 사색하기를 좋아한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 6,
+      "text": "당신은 다음 중 어떤 것을 많이 느낍니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "앞뒤를 가리지 않고 거침없이 행동을 한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "마음은 있으나 실행을 못하여 겁이 난다.", "constitutionKey": 2 },
+        { "order": 3, "label": "하던 일을 마무리하지 못하여 두렵다.", "constitutionKey": 3 },
+        { "order": 4, "label": "모든 일을 정확히 하려다 보니 불안하다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 7,
+      "text": "당신의 행동은 어디에 속합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "공격적인 행동을 한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "변화하기를 싫어한다.", "constitutionKey": 2 },
+        { "order": 3, "label": "새로운 것을 찾으려 한다.", "constitutionKey": 3 },
+        { "order": 4, "label": "방어적인 행동을 한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 8,
+      "text": "당신이 느끼는 것은 어느 것입니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "급진적이며 함부로 행동한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "보수적이며 욕심이 많다.", "constitutionKey": 2 },
+        { "order": 3, "label": "외향적이며 과시하려고 한다.", "constitutionKey": 3 },
+        { "order": 4, "label": "온순하며 편안하고자 한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 9,
+      "text": "자신은 언제 건강상태가 좋음을 느낍니까?",
+      "type": "single",
+      "isCore": true,
+      "choices": [
+        { "order": 1, "label": "소변의 양이 많고 잘 나올 때.", "constitutionKey": 1 },
+        { "order": 2, "label": "땀이 잘 나올 때.", "constitutionKey": 2 },
+        { "order": 3, "label": "대변이 잘 나올 때.", "constitutionKey": 3 },
+        { "order": 4, "label": "음식 소화가 잘 될 때.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 10,
+      "text": "어떤 성품을 갖고 있습니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "과거의 일에 미련이 별로 없다.", "constitutionKey": 1 },
+        { "order": 2, "label": "넓게 생각하고 이해해 버린다.", "constitutionKey": 2 },
+        { "order": 3, "label": "크고 넓게 포용해 버린다.", "constitutionKey": 3 },
+        { "order": 4, "label": "세밀하고 정확하게 일을 한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 11,
+      "text": "욕심이 생기게 되면 어떤 마음이 생깁니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "예절을 무시하고 마음대로 행동하고 싶다.", "constitutionKey": 1 },
+        { "order": 2, "label": "어진 마음을 버리고 욕심을 많이 부리고 싶다.", "constitutionKey": 2 },
+        { "order": 3, "label": "지식을 버리고 속이고 과시하고 싶다.", "constitutionKey": 3 },
+        { "order": 4, "label": "의리를 버리고 편안함을 택하고 싶다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 12,
+      "text": "당신은 어떤 마음이 부족합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "사양하는 마음이 부족하다.", "constitutionKey": 1 },
+        { "order": 2, "label": "측은히 여기는 마음이 부족하다.", "constitutionKey": 2 },
+        { "order": 3, "label": "옳고 그른 것을 따지는 마음이 부족하다.", "constitutionKey": 3 },
+        { "order": 4, "label": "부끄러운 일을 싫어하는 마음이 부족하다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 13,
+      "text": "잠재적으로 느끼는 감정은 어떤 것이 있습니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "더럽고 거친 면이 있다.", "constitutionKey": 1 },
+        { "order": 2, "label": "교만하고 포악스런 면이 있다.", "constitutionKey": 2 },
+        { "order": 3, "label": "교활하고 간교한 면이 있다.", "constitutionKey": 3 },
+        { "order": 4, "label": "속임수와 거짓을 일삼는 경우가 있다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 14,
+      "text": "자신은 어디에 속합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "자신은 게으르면서 다른 사람은 부지런하도록 한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "자신은 체면과 권위는 높이면서 다른 사람은 낮춘다.", "constitutionKey": 2 },
+        { "order": 3, "label": "자신을 공경해 주기를 바라면서 다른 사람은 가볍게 여긴다.", "constitutionKey": 3 },
+        { "order": 4, "label": "자신에게는 관대하면서 다른 사람에게는 박절히 한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 15,
+      "text": "자신이 가장 추구하는 것은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "권세에 관심이 가장 많다.", "constitutionKey": 1 },
+        { "order": 2, "label": "돈과 재물에 관심이 가장 많다.", "constitutionKey": 2 },
+        { "order": 3, "label": "명예에 관심이 가장 많다.", "constitutionKey": 3 },
+        { "order": 4, "label": "지위에 관심이 가장 많다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 16,
+      "text": "살아가면서 많이 느낀 것은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "자신의 마음을 공경하지 않는다.", "constitutionKey": 1 },
+        { "order": 2, "label": "자신의 업무에 최선을 다하지 않는다.", "constitutionKey": 2 },
+        { "order": 3, "label": "자신의 집안을 아끼지 않는다.", "constitutionKey": 3 },
+        { "order": 4, "label": "자신의 몸을 부지런하게 하지 않는다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 17,
+      "text": "자신을 충동하는 것은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "남의 것을 훔치고 싶은 때가 있다.", "constitutionKey": 1 },
+        { "order": 2, "label": "남의 것을 빼앗고자 할 때가 있다.", "constitutionKey": 2 },
+        { "order": 3, "label": "남을 업신여기고 싶을 때가 있다.", "constitutionKey": 3 },
+        { "order": 4, "label": "남을 질투하고 싶을 때가 있다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 18,
+      "text": "자신은 어디에 속합니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "친구를 사귈 때 여러 가지를 따지지는 않는다.", "constitutionKey": 1 },
+        { "order": 2, "label": "가정 일을 중요시하고 외부 일은 가볍게 본다.", "constitutionKey": 2 },
+        { "order": 3, "label": "외부 일을 중요시하고 가정 일은 가볍게 본다.", "constitutionKey": 3 },
+        { "order": 4, "label": "친구를 사귈 때 여러 가지를 따진다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 19,
+      "text": "감정이 극에 달하였을 때의 느낌은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "모임을 조직하고 처리하는 일이 잘 안되어 화가 난다.", "constitutionKey": 1 },
+        { "order": 2, "label": "일을 처리하는 것이 안 되면 사치, 향락을 일삼게 된다.", "constitutionKey": 2 },
+        { "order": 3, "label": "어떤 곳에 거처하는 것이 안되어 깊은 슬픔에 빠진다.", "constitutionKey": 3 },
+        { "order": 4, "label": "친구를 사귀는 것이 안 되어 웃음이 많아진다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 20,
+      "text": "자신이 가장 바라는 것은 어느 것입니까?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "제멋대로 하려는 마음이 있다.", "constitutionKey": 1 },
+        { "order": 2, "label": "욕심에 찰 정도로 풍족해지고 싶은 마음이 있다.", "constitutionKey": 2 },
+        { "order": 3, "label": "평소에 출세와 영화를 누리고 싶은 마음이 있다.", "constitutionKey": 3 },
+        { "order": 4, "label": "평소에 남에게 존경받고 싶은 마음이 있다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 21,
+      "text": "힘들고 어려운 상태에서 느끼었던 마음은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "부귀가 눈앞에 있는 듯하다.", "constitutionKey": 1 },
+        { "order": 2, "label": "이익이 눈앞에 있는 듯하다.", "constitutionKey": 2 },
+        { "order": 3, "label": "명예가 눈앞에 있는 듯하다.", "constitutionKey": 3 },
+        { "order": 4, "label": "권력이 눈앞에 있는 듯하다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 22,
+      "text": "자신이 가지고 있는 성품은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "말소리가 명확하여 사람을 맞아 들이는 듯하다.", "constitutionKey": 1 },
+        { "order": 2, "label": "사람 위에 우뚝 솟아서 남을 가르치며 유도해내는 듯하다.", "constitutionKey": 2 },
+        { "order": 3, "label": "포용력이 넓고 커서 사람을 존경하는 법도가 있는 듯하다.", "constitutionKey": 3 },
+        { "order": 4, "label": "성격이 넓고 평탄하여 사람을 달래며 따르도록 하는 듯하다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 23,
+      "text": "감정을 억누르지 못하여 나타나는 증세는?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "슬픔이 심해지면 심한 분노가 나타난다.", "constitutionKey": 1 },
+        { "order": 2, "label": "기쁨이 심해지면 사치, 향락이 나타난다.", "constitutionKey": 2 },
+        { "order": 3, "label": "화냄이 심해지면 슬픔이 가슴깊이 나타난다.", "constitutionKey": 3 },
+        { "order": 4, "label": "즐거움이 심해지면 감정의 변화가 나타난다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 24,
+      "text": "자신이 느끼었던 감정은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "남에게 서로 돕자고 해놓고 실제로 도울까 걱정한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "남에게 청렴하라 해놓고 실제로 청렴할까 걱정한다.", "constitutionKey": 2 },
+        { "order": 3, "label": "상대에게 서로 의지하자 해 놓고 실제로 의지할까 걱정한다.", "constitutionKey": 3 },
+        { "order": 4, "label": "남을 깨우쳐 줘야한다 해 놓고 실제로 깨우쳐 줄까 걱정한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 25,
+      "text": "자신이 느꼈던 감정은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "하고 싶은 것을 못하여 항상 분한 마음이 생긴다.", "constitutionKey": 1 },
+        { "order": 2, "label": "남에게 가져온 것이 적지는 않으나 계속되지 않아 항상 두렵다.", "constitutionKey": 2 },
+        { "order": 3, "label": "자기 것을 아끼는 것이 치밀하지만 부족하여 항상 근심스럽다.", "constitutionKey": 3 },
+        { "order": 4, "label": "하고 싶은 것을 할 수 있어 항상 즐겁다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 26,
+      "text": "사람을 판단할 때에 어떤 면을 중요시하는가?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "선과 악을 중요하게 생각한다.", "constitutionKey": 1 },
+        { "order": 2, "label": "근면과 게으름을 중요하게 생각한다.", "constitutionKey": 2 },
+        { "order": 3, "label": "지혜와 어리석음을 중요하게 생각한다.", "constitutionKey": 3 },
+        { "order": 4, "label": "능력과 무능력을 중요하게 생각한다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 27,
+      "text": "가장 꺼려하는 사람은?",
+      "type": "single",
+      "isCore": false,
+      "choices": [
+        { "order": 1, "label": "세밀하고 빈틈이 없으면서 예의가 완벽한 사람이다.", "constitutionKey": 1 },
+        { "order": 2, "label": "재산을 경영하면서도 의리가 완벽한 사람이다.", "constitutionKey": 2 },
+        { "order": 3, "label": "은혜에 보답하고 신의가 있으면서 어진 마음이 완벽한 사람이다.", "constitutionKey": 3 },
+        { "order": 4, "label": "재주가 있으면서 지혜가 완벽한 사람이다.", "constitutionKey": 4 }
+      ]
+    },
+    {
+      "order": 28,
+      "text": "다음 중 좋아하는 음식물에 모두 체크하세요.",
+      "type": "multiselect-food",
+      "isCore": true,
+      "foodGroups": [
+        {
+          "order": 1,
+          "constitutionKey": 1,
+          "constitution": "ty",
+          "label": "태양인에 좋은 음식",
+          "items": ["메밀", "냉면", "새우", "조개류(굴, 소라, 전복)", "게", "해삼", "붕어", "순채나물", "기타 소채류"]
+        },
+        {
+          "order": 2,
+          "constitutionKey": 2,
+          "constitution": "te",
+          "label": "태음인에 좋은 음식",
+          "items": ["밀가루 음식", "콩", "고구마", "땅콩", "설탕", "쇠고기", "우유", "버터", "치즈", "명란 젓", "장어", "도라지", "당근", "더덕", "고사리", "연근", "토란", "버섯", "미역", "다시마", "김"]
+        },
+        {
+          "order": 3,
+          "constitutionKey": 3,
+          "constitution": "sy",
+          "label": "소양인에 좋은 음식",
+          "items": ["보리", "팥", "녹두", "돼지고기", "계란", "오리고기", "생굴", "해삼", "멍게", "전복", "새우", "게", "가재", "복어", "잉어", "자라", "가물치", "가자미", "배추", "오이", "상추", "우엉", "호박", "가지", "당근", "생맥주", "빙과류"]
+        },
+        {
+          "order": 4,
+          "constitutionKey": 4,
+          "constitution": "se",
+          "label": "소음인에 좋은 음식",
+          "items": ["찹쌀", "차조", "감자", "닭고기", "개고기", "꿩고기", "참새고기", "양젖", "염소고기", "양고기", "벌꿀", "명태", "도미", "조기", "멸치", "민어", "미꾸라지", "시금치", "양배추", "미나리", "파", "카레", "후추", "마늘"]
+        }
+      ]
+    }
+  ]
+}

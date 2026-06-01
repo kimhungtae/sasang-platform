@@ -1,101 +1,56 @@
-import Image from "next/image";
+import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+      <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:py-24">
+        <div className="text-center space-y-6">
+          <div className="inline-block text-5xl">🌿</div>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+            사상의학 플랫폼
+          </h1>
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto">
+            동무 이제마의 사상의학을 기반으로 한 체질 감별 · 처방 · 강의록 통합 플랫폼.
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <Link
+            href="/quiz"
+            className="group rounded-lg bg-white dark:bg-zinc-900 border-2 border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 p-6 transition"
+          >
+            <div className="text-2xl mb-2">🔍</div>
+            <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+              사상체질 자가진단
+            </h2>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              28문항 설문으로 사상체질을 가늠해봅니다.
+            </p>
+            <div className="mt-3 text-sm font-medium text-emerald-600 dark:text-emerald-400 group-hover:underline">
+              시작하기 →
+            </div>
+          </Link>
+
+          <div className="rounded-lg bg-zinc-100 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 p-6 opacity-60">
+            <div className="text-2xl mb-2">📚</div>
+            <h2 className="font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              한의사용 처방 검색
+            </h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-500">
+              류주열 처방 352개 검색 (한의사 로그인 필요)
+            </p>
+            <div className="mt-3 text-sm font-medium text-zinc-400">
+              T8~T9에서 구현 예정
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            온누리한의원 · 사상의학 디지털 플랫폼 · 개발 중 v0.1
+          </p>
+        </div>
+      </div>
+    </main>
   );
 }

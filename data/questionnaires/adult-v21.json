@@ -1,0 +1,323 @@
+{
+  "type": "adult-v24",
+  "version": "v24-platform",
+  "title": "온누리 사상체질 감별 설문지",
+  "description": "온누리한의원 v24 통합 설문지. 6 PART 30문항 (체형·생리·OX·성격·심리·음식) + 확정문항 4개. 평소·태어날 때부터의 경향을 기준으로 답변해주세요. 모르겠으면 비워두는 것이 정답입니다 — 면담으로 보충합니다.",
+  "sourceFile": "온누리_사상체질_감별설문지_v24-7f92f605.html (v21 docx 기반)",
+  "constitutionPalette": {
+    "ty": { "name": "태양인", "color": "#8B1A1A", "light": "#fdf0f0" },
+    "te": { "name": "태음인", "color": "#1A4A2E", "light": "#edf7f1" },
+    "sy": { "name": "소양인", "color": "#A04000", "light": "#fef3e6" },
+    "se": { "name": "소음인", "color": "#1A3A6B", "light": "#eaeff8" }
+  },
+  "sections": [
+    { "key": "body", "label": "PART 1. 체형·골격", "order": 1, "weight": 2 },
+    { "key": "physio", "label": "PART 2. 생리·건강", "order": 2, "weight": 2 },
+    { "key": "ox", "label": "PART 3. 예/아니오 — 한열·음식·신체", "order": 3, "weight": 1 },
+    { "key": "char", "label": "PART 4. 성격·기질", "order": 4, "weight": 2 },
+    { "key": "emo", "label": "PART 5. 심리·감정", "order": 5, "weight": 2 },
+    { "key": "food", "label": "PART 6. 음식 반응", "order": 6, "weight": 2 },
+    { "key": "killer", "label": "확정 문항 (각 체질 결정타)", "order": 7, "weight": 5 }
+  ],
+  "questions": [
+    {
+      "order": 1, "code": "Q1", "section": "body", "type": "dual-mark", "isCore": true,
+      "text": "[흉곽·어깨 형태] 옆에서 본 가슴통의 두께와 어깨 모양은?",
+      "choices": [
+        { "order": 1, "label": "가슴통이 앞뒤로 얇고 평평하며 옆으로만 넓게 퍼진 가오리형(평야형). 어깨가 둥글게 앞으로 말린 라운드 숄더가 흔하고 등판이 넓다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "가슴통이 앞뒤로 두툼하고 둥글어 몸통이 꽉 찬 원통형(종형). 명치 흉골각이 넓어(손가락 2개 이상 들어감) 갈비뼈가 사방으로 펴진다. 어깨는 좁고 약간 처진 편.", "effects": { "te": 1 } },
+        { "order": 3, "label": "가슴·어깨가 좌우로 떡 벌어지고 허리 아래로 급격히 가늘어지는 역삼각형. 흉골각이 좁아(손가락 1개 이내) V자 형태이며 가슴 근육이 단단하다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "가슴통이 좁고 빈약하며 전체적으로 가늘고 길쭉한 세장형. 양옆에서 누른 듯한 새가슴이 흔하고, 어깨선이 좁고 자연스레 떨어진다.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 2, "code": "Q2", "section": "body", "type": "dual-mark", "isCore": true,
+      "text": "[엉덩이·골반·무게중심] 바지 핏과 앉은 모습의 안정감은?",
+      "choices": [
+        { "order": 1, "label": "엉덩이가 납작하고 살집이 거의 없으며 뒤로 튀어나오지 않는다. 바지 뒷부분이 항상 헐렁하고 무게중심이 상체에 쏠려 있다. 허리는 가늘고 긴 편.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "허리둘레가 굵어 바지를 살 때 허리 치수에 몸을 맞춘다. 엉덩이는 살이 골고루 붙어 있지만 골반 자체는 좁고, 복부·허리가 함께 굵은 원통형이다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "어깨는 넓은데 엉덩이는 작고 좌우 폭이 좁으며 뒤로만 약간 돌출된다. 골반이 작아 오래 앉으면 허리·꼬리뼈가 금방 불편하다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "엉덩이가 좌우로 펑퍼짐하게 발달하고 골반이 벌어져 있다. 앉은 모습이 매우 안정적이며 허벅지 사이 간격이 넓다. ★ 분명하면 태양·소양인 가능성 매우 낮음.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 3, "code": "Q3", "section": "body", "type": "dual-mark", "isCore": true,
+      "text": "[팔·다리·목의 비율] 키에 비해 유독 길거나 굵은 부위는?",
+      "choices": [
+        { "order": 1, "label": "팔꿈치~손끝(전완)이 유독 길어 기성복 셔츠 소매가 항상 짧게 느껴진다. 목은 가늘고 길며 목덜미가 솟아 있어 가분수 인상이 있다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "팔다리가 특별히 길지 않고 뼈대가 굵직하며 손목·발목도 굵다. 목이 굵고 짧아 어깨와 목 경계가 불분명하며, 양복 허리 치수와 목둘레가 비례한다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "상체는 길고 발달했으나 다리가 짧다. 발이 키에 비해 유독 작아 신발 사이즈가 작고, 손도 몸통에 비해 작은 편이다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "무릎 아래(종아리·발목)가 유독 길어 전체적으로 하체가 길고 늘씬해 보인다. 동양인 중 가장 다리가 긴 비율이며 발도 큰 편이다.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 4, "code": "Q4", "section": "body", "type": "dual-mark", "isCore": true,
+      "text": "[얼굴 인상·이마·눈빛] 거울에 비친 얼굴형과 인상은?",
+      "choices": [
+        { "order": 1, "label": "광대뼈가 발달하고 그 사이가 꺼져 보이는 굴곡 있는 얼굴. 눈빛이 강렬하고 화난 듯한 매서운 눈매로 기세가 압도적이다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "얼굴 골격이 크고(사이즈가 작더라도 야무지게) 이목구비가 사방으로 펴진다. 광대뼈가 볼록하고(소양인은 평평), 미릉골이 도드라지며 안검이 두툼해 째진 눈이 많다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "이마가 강하고 가운데로 몰리듯 돌출되며 이목구비가 오밀조밀 가깝다. 안검이 얇고 눈빛이 화사하게 반짝이는 새눈 같은 인상. 광대뼈는 옆으로 평평하게 펴진다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "얼굴이 작고 약간 긴 편(당나귀·염소형)이며 광대뼈가 잘 발달하지 않아 평평하다. 눈빛이 부드럽고 촉촉하며 표정이 섬세하고 예민해 보인다.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 5, "code": "Q5", "section": "body", "type": "dual-mark", "isCore": false,
+      "text": "[입·입술·턱·인중] 본인의 입과 아래턱 부위의 특징은?",
+      "choices": [
+        { "order": 1, "label": "입은 보통 크기이며 입술 윤곽도 평범하다. 특별히 크거나 작거나 두드러지지 않는다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "입술이 두텁고 상하·좌우로 발달하여 도톰하다. 너무 발달해 입이 뒤집힌 느낌이 있을 수 있고, 아래턱 골격도 함께 발달해 야무지다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "입이 작고 입꼬리(구각)도 좁으며 입술 윤곽이 흐릿하다. 아래턱이 짧고 갸름해 턱각도가 90도에 가깝게 각지며 인중이 짧다. ★ 입이 크고 구각이 넓으면 소양인 가능성 매우 낮음.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "입이 크지 않더라도 입술 윤곽이 또렷하고 도톰하며 단정하다. 인중이 길고 아래턱이 길며 야무져 턱끝이 뭉툭하다(턱각도 둔각). ★ 입이 작고 얇으면 소음인 가능성 매우 낮음.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 6, "code": "Q6", "section": "physio", "type": "single-unknown", "isCore": true,
+      "text": "[건강 척도] 컨디션이 가장 좋다고 느껴지는 때는?",
+      "choices": [
+        { "order": 1, "label": "소변이 시원하게 잘 나올 때. 평소 컨디션을 땀이나 대변보다 소변 상태로 파악한다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "땀이 충분히 나고 난 뒤 몸이 가뿐하고 상쾌할 때. 충분히 흘려야 개운하다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "대변이 시원하게 잘 나올 때. 변비가 없어야 머리도 맑고 몸이 가볍다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "음식이 잘 소화되고 속이 편하며 식욕이 좋을 때. 잘 먹어야 기운이 난다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 7, "code": "Q7", "section": "physio", "type": "single-unknown", "isCore": true,
+      "text": "[이상 신호] 몸이 안 좋아질 때 가장 먼저 나타나는 증상은?",
+      "choices": [
+        { "order": 1, "label": "소변이 가장 먼저 불편해진다(시원하지 않거나 잦은 소변). 하체에 힘이 빠지는 느낌도 함께 온다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "땀이 안 나면서 몸이 무겁고 답답하다. 두통이 동반되고 운동을 해도 잘 풀리지 않는다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "대변이 굳거나 변비가 생기고, 상열감이 올라오며 입이나 인후부가 마른다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "소화가 잘 안 되고 식욕이 먼저 떨어진다. 추위를 더 타고 손발이 더 차가워진다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 8, "code": "Q8", "section": "physio", "type": "single-unknown", "isCore": false,
+      "text": "[땀 반응] 평소 땀에 대한 본인의 반응은?",
+      "choices": [
+        { "order": 1, "label": "평소 땀이 거의 없는 편이다. 사우나·찜질방·땡볕에 오래 있으면 기력이 빠지고 가장 먼저 지친다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "땀이 많고 충분히 흘리면 오히려 몸이 상쾌하다. 땀을 못 내면 답답하고 무거우며, 땀 안 나는 운동(수영 등)은 잘 맞지 않는다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "땀을 잘 흘리지만 흘려도 크게 피곤하거나 기력이 떨어지지 않는다. 평소 더위를 잘 탄다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "조금만 땀을 흘려도 기력이 뚝 떨어진다. 추위를 많이 타고 손발이 늘 시리다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 9, "code": "Q9", "section": "ox", "type": "ox", "isCore": false, "tag": "한열",
+      "text": "대변을 하루 1회 이상 규칙적으로 본다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "hanyul": "cold" } },
+        { "order": 2, "label": "아니오", "effects": { "hanyul": "hot" } },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 10, "code": "Q10", "section": "ox", "type": "ox", "isCore": false, "tag": "한열",
+      "text": "커피를 많이 마셔도 잠드는 데 지장이 없다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "hanyul": "cold" } },
+        { "order": 2, "label": "아니오", "effects": { "hanyul": "hot" } },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 11, "code": "Q11", "section": "ox", "type": "ox", "isCore": false, "tag": "한열(소양)",
+      "text": "과식하면 윗배(명치 부위)에 가스가 잘 차고 더부룩하다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "hanyul_sy": "cold" } },
+        { "order": 2, "label": "아니오", "effects": { "hanyul_sy": "hot" } },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 12, "code": "Q12", "section": "ox", "type": "ox", "isCore": false, "tag": "음식 반응",
+      "text": "술을 마시면 다음 날 유난히 컨디션이 무너지고 소변이 시원하지 않다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "ty": 2 } },
+        { "order": 2, "label": "아니오", "effects": {} },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 13, "code": "Q13", "section": "ox", "type": "ox", "isCore": false, "tag": "음식 반응",
+      "text": "닭고기·마늘·생강을 먹으면 속에 열이 오르고 답답해진다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "sy": 2 } },
+        { "order": 2, "label": "아니오", "effects": {} },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 14, "code": "Q14", "section": "ox", "type": "ox", "isCore": false, "tag": "음식 반응",
+      "text": "찬 음식·날것을 조금만 먹어도 바로 배가 불편하거나 설사한다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "se": 2 } },
+        { "order": 2, "label": "아니오", "effects": {} },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 15, "code": "Q15", "section": "ox", "type": "ox", "isCore": false, "tag": "신체 반응",
+      "text": "사우나·찜질방에서 오래 있으면 기력이 쭉 빠진다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "se": 1, "ty": 1 } },
+        { "order": 2, "label": "아니오", "effects": { "te": 1, "sy": 1 } },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 16, "code": "Q16", "section": "ox", "type": "ox", "isCore": false, "tag": "신체 반응",
+      "text": "발뒤꿈치가 잘 갈라지거나 두꺼워진다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "sy": 1 } },
+        { "order": 2, "label": "아니오", "effects": {} },
+        { "order": 3, "label": "모름", "effects": {} }
+      ]
+    },
+    {
+      "order": 17, "code": "Q17", "section": "char", "type": "single-unknown", "isCore": false,
+      "text": "일을 처리할 때 나는?",
+      "choices": [
+        { "order": 1, "label": "크게 벌이고 추진력 있게 한다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "끝까지 꾸준하고 묵묵히 완수한다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "창의적이고 솔직하게 처리한다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "꼼꼼하고 세밀하게 마무리한다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 18, "code": "Q18", "section": "char", "type": "single-unknown", "isCore": false,
+      "text": "나의 생활 습관에 가장 가까운 것은?",
+      "choices": [
+        { "order": 1, "label": "물러서지 않고 강하게 밀고 나간다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "한곳에 머물려 하고 잘 나다니지 않는다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "일을 벌여놓기만 하고 마무리가 약한 편이다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "조용히 혼자서 추진하는 편이다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 19, "code": "Q19", "section": "char", "type": "single-unknown", "isCore": false,
+      "text": "[결정·계획 방식] 중요한 결정을 내리거나 계획을 세울 때 나는?",
+      "choices": [
+        { "order": 1, "label": "새로운 방향이나 의미를 먼저 찾는다. 결정하면 화끈하게 밀고 나가고, 안 되면 미련 없이 엎어버린다. 큰 계획 없이 즉각적인 편이다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "안정적인지 끝까지 신중히 따져본다. 한번 결정하면 꿋꿋이 끝까지 가며, 시간이 지날수록 더 잘 해낸다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "결정을 빠르게 한다. 일단 행동부터 옮긴 뒤 생각하는 편이며, 안 맞으면 포기도 빠르다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "실수할까 봐 오래 고민하고 준비한다. 계획이 없으면 불안하며, 빨리 하는 것보다 철저히 하는 것이 더 중요하다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 20, "code": "Q20", "section": "char", "type": "single-unknown", "isCore": false,
+      "text": "내가 잘하는 것은?",
+      "choices": [
+        { "order": 1, "label": "진취적이고 추진력이 강하다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "변화 없이 꾸준히 지속하는 편이다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "다양하게 벌이고 도전하는 편이다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "신중하게 생각하고 행동하는 편이다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 21, "code": "Q21", "section": "emo", "type": "single-unknown", "isCore": false,
+      "text": "모임이나 대화 중에 나는 주로 어떤 모습입니까?",
+      "choices": [
+        { "order": 1, "label": "새로운 방향을 제안하며 독특하고 자기주장이 강하다는 소리를 듣는다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "조용히 중심을 잡으며 믿음직하다는 소리를 자주 듣는다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "분위기를 주도하며 말이 빠르고 결론부터 단도직입적으로 말한다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "관찰하고 조심스럽게 참여하며 섬세하고 예민하다는 소리를 듣는다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 22, "code": "Q22", "section": "emo", "type": "single-unknown", "isCore": false,
+      "text": "예상치 못한 변화나 갑작스러운 상황 앞에서 나의 본심 반응은?",
+      "choices": [
+        { "order": 1, "label": "즉시 새로운 방향을 모색하고 상황·시스템 자체를 바꾸려 한다. 안 되면 사람을 피하고 고립되는 경향이 있다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "변화 자체를 싫어해 처음엔 머뭇거리지만, 한번 받아들이면 묵묵히 적응해 간다. 속으로 오래 곱씹는다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "즉각 반응하고 해결책부터 찾는다. 답답한 상황을 못 견뎌 행동으로 바로 옮긴다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "당황하고 위축되며 차분히 생각할 시간이 필요하다. 혼자 충분히 준비한 뒤 대응한다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 23, "code": "Q23", "section": "emo", "type": "single-unknown", "isCore": false,
+      "text": "일이 잘 안 풀리거나 스트레스를 받을 때 나는?",
+      "choices": [
+        { "order": 1, "label": "상황이나 시스템 자체를 바꾸려 하거나 사람을 피하고 고립된다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "참으면서 끝까지 버티지만 속으로는 그 상황을 오래 기억한다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "답답해서 바로 해결하려 하고 화가 나면 바로 표현한다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "걱정이 많아지고 쉽게 불안해하며 속으로 앓는 편이다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 24, "code": "Q24", "section": "emo", "type": "single-unknown", "isCore": false,
+      "text": "누군가 나를 비판하거나 실패했을 때 나의 반응은?",
+      "choices": [
+        { "order": 1, "label": "그 사람의 기준 자체를 의심하거나 시스템의 근본 문제를 따진다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "겉으론 괜찮아 보여도 왜 이렇게 됐는지 오래 붙잡고 고민한다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "바로 반응하여 맞서거나 다음 해결 방법을 즉시 찾는다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "내가 잘못했나 계속 생각하며 스스로를 자책하고 위축된다.", "effects": { "se": 1 } },
+        { "order": 5, "label": "잘 모르겠음 / 어느 쪽도 잘 안 맞음", "effects": {} }
+      ]
+    },
+    {
+      "order": 25, "code": "Q25", "section": "food", "type": "dual-mark", "isCore": true,
+      "text": "먹고 나서 몸이 가장 편하고 기운이 나는 음식은?",
+      "choices": [
+        { "order": 1, "label": "메밀·냉면·조개·게·새우처럼 담백하고 가벼운 음식이 몸에 가장 잘 맞는다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "쇠고기·우유·도라지·더덕 같은 음식을 먹으면 든든하고 속이 편하다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "돼지고기·보리·수박·오이 같은 서늘한 음식을 먹으면 열이 식고 속이 편하다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "닭고기·찹쌀·마늘·생강처럼 따뜻한 성질의 음식을 먹어야 기운이 난다.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 26, "code": "Q26", "section": "food", "type": "dual-mark", "isCore": true,
+      "text": "먹고 나서 속이 불편하거나 몸이 무거워지는 음식은?",
+      "choices": [
+        { "order": 1, "label": "쇠고기·기름진 음식을 먹으면 몸이 무겁고 소변이 시원하지 않다.", "effects": { "ty": 1 } },
+        { "order": 2, "label": "돼지고기나 차가운 음식(냉면·빙과류)을 먹으면 다음날 몸이 무겁고 소화가 안 된다.", "effects": { "te": 1 } },
+        { "order": 3, "label": "닭고기·마늘·기름진 음식을 먹으면 열이 오르고 속이 답답해진다.", "effects": { "sy": 1 } },
+        { "order": 4, "label": "조금만 차갑거나 날것을 먹어도 바로 배가 불편하고 소화가 안 된다.", "effects": { "se": 1 } }
+      ]
+    },
+    {
+      "order": 27, "code": "K1", "section": "killer", "type": "killer-ox", "isCore": true, "tag": "태양 解㑊",
+      "confirmConstitution": "ty",
+      "text": "평소 다리에 힘이 빠지는 느낌이 잦고, 오래 걷거나 계단을 오르내릴 때 다른 사람보다 유난히 힘들다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "confirm": "ty", "weight": 5 } },
+        { "order": 2, "label": "아니오", "effects": {} }
+      ]
+    },
+    {
+      "order": 28, "code": "K2", "section": "killer", "type": "killer-ox", "isCore": true, "tag": "태음 發散",
+      "confirmConstitution": "te",
+      "text": "사우나·찜질방에서 충분히 땀을 흘리면 오히려 몸이 가벼워지고 개운하다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "confirm": "te", "weight": 5 } },
+        { "order": 2, "label": "아니오", "effects": {} }
+      ]
+    },
+    {
+      "order": 29, "code": "K3", "section": "killer", "type": "killer-ox", "isCore": true, "tag": "소양 怒情",
+      "confirmConstitution": "sy",
+      "text": "분노가 갑자기 폭발했다가 빠르게 가라앉고 뒤끝이 없다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "confirm": "sy", "weight": 5 } },
+        { "order": 2, "label": "아니오", "effects": {} }
+      ]
+    },
+    {
+      "order": 30, "code": "K4", "section": "killer", "type": "killer-ox", "isCore": true, "tag": "소음 寒象",
+      "confirmConstitution": "se",
+      "text": "추위를 유난히 심하게 타고 손발이 늘 차다.",
+      "choices": [
+        { "order": 1, "label": "예", "effects": { "confirm": "se", "weight": 5 } },
+        { "order": 2, "label": "아니오", "effects": {} }
+      ]
+    }
+  ]
+}
