@@ -19,7 +19,7 @@
 
 ---
 
-## 2. 진행 상황 (2026-06-01 기준)
+## 2. 진행 상황 (2026-06-08 기준)
 
 ### ✅ 완료된 작업
 
@@ -30,20 +30,20 @@
 | T3 | 설문지 ETL (v23 28문항 → v21 26문항 → v24-platform 30문항으로 진화) |
 | T4 | 자가진단 UI (`/quiz`, `/quiz/[step]`) |
 | T5 | v24 채점 알고리즘 + 결과지 (Stage 1/2/3, 한열 분기, Bayesian Prior) |
+| T6 | 섭생 가이드 페이지 (`/guide/[constitution]`, 음식·운동·정서·주의 4섹션, 결과지 연결) |
 
 ### ⏳ 남은 작업 (Phase 1)
 
 | Task | 내용 | 예상 |
 |---|---|---|
-| **T6** | 섭생 가이드 페이지 `/guide/[constitution]` | 1~2시간 |
-| T7 | Auth.js 인증 (한의사/환자 구분, Resend 이메일) | 3~5시간 |
+| **T7** | Auth.js 인증 (한의사/환자 구분, Resend 이메일) | 3~5시간 |
 | T8 | 류주열 처방 352개 ETL | 2~3시간 |
 | T9 | 처방 검색 페이지 | 3~4시간 |
 | T10 | 면책·법적 페이지 | 1시간 |
 | T11 | README + 운영 문서 | 1시간 |
 | T12 | Phase 1 검증 (E2E 테스트) | 2시간 |
 
-**진행률**: 5/12 (42%) · 진료실 적용까지 약 2~3주 추정
+**진행률**: 6/12 (50%) · 진료실 적용까지 약 2~3주 추정
 
 ---
 
@@ -153,6 +153,7 @@ sasang-platform/
 
 ## 7. 사용자 작업 스타일
 
+- **말투: 반드시 존댓말로 응대할 것** (사용자가 명시적으로 요청함 — 반말 금지)
 - 한의사 (비개발자) — 시각적 안내 + 배치 파일 워크플로우 선호
 - 진료 사이 짬짬이 작업 → 단계별 진행, 한 번에 너무 많이 X
 - 화면 캡처로 결과 확인 좋아함
@@ -180,23 +181,27 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-## 9. T6 작업 큐 (다음 작업)
+## 9. 작업 큐 (다음 작업: T7)
 
-DEVELOPMENT_GUIDE §8 T6 (`/sasang-platform/CLAUDE.md`보다 더 상세):
-- [ ] `data/lifestyle/{ty,te,sy,se}.md` 4파일 작성
-  - **참고**: `data/type-info.ts`의 `TYPE_INFO[c].saeng` 6항목이 이미 있음
-  - 사상의학 폴더의 섭생법 HWP 4종에서 추가 정리 가능
-- [ ] `app/guide/[constitution]/page.tsx` 작성
-- [ ] 4섹션 구조: 음식 · 운동 · 정서 · 주의
-- [ ] 결과 페이지에서 "더 자세히 보기" 링크로 연결
-- [ ] (선택) 한의사 상담 CTA — 내부용이라 v2에서 활성화
+### ✅ T6 완료 (2026-06-08) — 섭생 가이드 페이지
 
-### T6 시작 시 첫 액션
+- [x] `data/lifestyle.ts` 작성 — **계획의 .md 4파일 대신 구조화 TS 데이터로 구현**
+      (기존 `type-info.ts` 패턴 일치, 마크다운 렌더러 의존성 회피)
+      4체질 × 4섹션(food/exercise/emotion/caution), `headline`·`keyIndicator` 포함
+- [x] `app/guide/[constitution]/page.tsx` 작성 — 동적 라우트, 체질 컬러 테마,
+      음식 권장/절제 칩, 다른 체질 교차 링크, 잘못된 코드 시 `notFound()` (404)
+- [x] 4섹션 구조: 음식 · 운동 · 정서 · 주의
+- [x] 결과 페이지(`ResultView.tsx`)에서 "더 자세히 보기" CTA로 `/guide/[top]` 연결
+- [ ] (보류) 한의사 상담 CTA — 내부용이라 v2에서 활성화
+- 검증: `tsc --noEmit` 통과, `next lint` 클린. (주의: 이 폴더 node_modules는
+  Windows 설치본이라 Linux 샌드박스에서 `next build`/`tsx` 네이티브 바이너리 실행 불가)
 
-1. `data/type-info.ts` 확인 (TYPE_INFO 구조 파악)
-2. `사상의학` 폴더의 섭생법 HWP 파일 위치 확인
-   - `/sessions/<id>/mnt/onnuriclinic/사상의학/[태양|태음|소양|소음]인 섭생법.hwp`
-3. 페이지 구조 설계 후 사용자에게 보여주고 진행
+### ⏳ T7 시작 시 첫 액션 (인증)
+
+1. `next-auth` + `resend` 설치 (CLAUDE.md §3 예정 의존성)
+2. 한의사/환자 역할 구분 설계 — DB `users` 테이블 확인 (`db/schema.ts`)
+3. Resend: 도메인 연결·API 키 발급부터 (현재 가입만 된 상태, §10)
+4. `.env.local`에 키 추가 (gitignore됨, §11 보안 메모 준수)
 
 ---
 
@@ -223,16 +228,16 @@ T7(인증)에서 Resend, T-deploy에서 Vercel/Turso 본격 사용 예정.
 
 ## 12. 마지막 commit
 
-- Hash: `7fbe00b`
-- Message: `feat(quiz): T5 v24-platform - scoring algorithm and result page`
-- Date: 2026-06-01
+- Hash: `2d04d3f`
+- Message: `feat(guide): T6 - constitution lifestyle guide page`
+- Date: 2026-06-08
 
 ---
 
 ## 13. 새 세션 시작 시 권장 흐름
 
 1. **이 CLAUDE.md를 먼저 읽기** (자동 로드되어 있을 것)
-2. 사용자 요청 듣고 → §9 T6 작업 큐 확인
+2. 사용자 요청 듣고 → §9 작업 큐 확인 (현재 다음 작업: T7 인증)
 3. **불필요한 재질문 금지**:
    - "어떤 DB?" → libsql + Drizzle (이미 셋업됨)
    - "체질 정보 어디?" → `data/type-info.ts`
@@ -243,4 +248,4 @@ T7(인증)에서 Resend, T-deploy에서 Vercel/Turso 본격 사용 예정.
 
 ---
 
-**마지막 업데이트**: 2026-06-01 (T5 완료 시점, 이전 Cowork 세션에서 작성)
+**마지막 업데이트**: 2026-06-08 (T6 완료 시점)

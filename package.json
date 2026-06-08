@@ -11,7 +11,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
-    "seed:questionnaire": "tsx scripts/seed-questionnaire.ts"
+    "seed:questionnaire": "tsx scripts/seed-questionnaire.ts",
+    "reset:questionnaire": "tsx scripts/reset-questionnaire.ts"
   },
   "dependencies": {
     "react": "^18",

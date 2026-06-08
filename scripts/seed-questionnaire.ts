@@ -1,14 +1,14 @@
 /**
  * 설문지 시드 스크립트 (v21 우선)
  *
- * data/questionnaires/adult-v21.json → SQLite DB
+ * data/questionnaires/adult-v21.json → DB (.env.local의 DATABASE_URL 대상)
  *
  * 실행: npm run seed:questionnaire
  * 멱등성: 같은 type+version 이미 있으면 스킵
+ *
+ * 주의: './load-env'를 db보다 먼저 import 해야 Turso 주소가 반영됨.
  */
-
-import * as dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' });
+import './load-env';
 
 import { db, schema } from '../db';
 import { eq, and } from 'drizzle-orm';
@@ -33,7 +33,9 @@ type QuestionData = {
 };
 
 async function main() {
+  const dbTarget = process.env.DATABASE_URL ?? 'file:./db/sasang.db (local)';
   console.log(`\n=== Seeding questionnaire: ${questionnaire.type} ${questionnaire.version} ===`);
+  console.log('  DB target: ' + dbTarget);
 
   const existing = await db
     .select()
