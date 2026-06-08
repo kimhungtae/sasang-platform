@@ -334,6 +334,13 @@ export function ResultView({ questions }: Props) {
               </li>
             ))}
           </ol>
+          <Link
+            href={`/guide/${final.top}`}
+            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium rounded-lg px-4 py-2 transition hover:opacity-80"
+            style={{ backgroundColor: `${info.color}15`, color: info.color }}
+          >
+            {info.name} 섭생 가이드 더 자세히 보기 →
+          </Link>
         </div>
 
         {/* 면책 + 액션 */}
