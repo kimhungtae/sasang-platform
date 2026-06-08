@@ -281,3 +281,58 @@ export const lifestyleGuides = sqliteTable('lifestyle_guides', {
   avoidJson: text('avoid_json'),
   description: text('description'),
 });
+
+// ─────────────────────────────────────────────────────────
+// 12. patients — 환자 (진료 기록용, 차트번호로 식별)
+//     ⚠️ 임상가 전용. 익명 자가진단과 별개. 차트번호로 환자 매칭.
+// ─────────────────────────────────────────────────────────
+export const patients = sqliteTable(
+  'patients',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    chartNo: text('chart_no').notNull(), // 차트번호 (검색·매칭 키)
+    name: text('name').notNull(), // 이름
+    gender: text('gender', { enum: ['M', 'F'] }), // 선택
+    age: integer('age'), // 선택
+    createdAt: integer('created_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    chartIdx: index('patients_chart_idx').on(t.chartNo),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────
+// 13. survey_records — 환자 설문 기록 (1차 검사실 → 원장실 이어보기)
+//     answersJson: 응답 맵, resultJson: 계산된 결과(체질/한열/신뢰도/분포)
+//     stage: intake(1차 완료) → reviewed(원장 확인) → prescribed(처방)
+// ─────────────────────────────────────────────────────────
+export const surveyRecords = sqliteTable(
+  'survey_records',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    patientId: integer('patient_id')
+      .notNull()
+      .references(() => patients.id, { onDelete: 'cascade' }),
+    qnaireId: integer('qnaire_id')
+      .notNull()
+      .references(() => questionnaires.id),
+    answersJson: text('answers_json').notNull(),
+    resultJson: text('result_json').notNull(),
+    stage: text('stage', { enum: ['intake', 'reviewed', 'prescribed'] })
+      .notNull()
+      .default('intake'),
+    clinicMemo: text('clinic_memo'),
+    createdAt: integer('created_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`(unixepoch())`),
+    updatedAt: integer('updated_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    patientIdx: index('survey_records_patient_idx').on(t.patientId),
+    createdIdx: index('survey_records_created_idx').on(t.createdAt),
+  }),
+);

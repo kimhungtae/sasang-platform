@@ -12,7 +12,8 @@
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "seed:questionnaire": "tsx scripts/seed-questionnaire.ts",
-    "reset:questionnaire": "tsx scripts/reset-questionnaire.ts"
+    "reset:questionnaire": "tsx scripts/reset-questionnaire.ts",
+    "create:clinic": "tsx scripts/create-clinic-tables.ts"
   },
   "dependencies": {
     "react": "^18",

@@ -18,5 +18,5 @@ export default async function ResultPage() {
 
   const questions = await getAllQuestions(qnaire.id);
 
-  return <ResultView questions={questions} />;
+  return <ResultView questions={questions} qnaireId={qnaire.id} />;
 }

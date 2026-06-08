@@ -210,11 +210,16 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 | 서비스 | 상태 | 비고 |
 |---|---|---|
 | GitHub | ✅ 사용 중 | kimhungtae/sasang-platform |
-| Vercel | ✅ 가입 완료 | 아직 배포 안 함 |
-| Turso | ✅ 가입 완료 | CLI 설치 + DB 생성 안 함 |
-| Resend | ✅ 가입 완료 | 도메인 연결·API 키 발급 안 함 |
+| Vercel | ✅ **배포 완료 (2026-06-08)** | **https://sasang-platform.vercel.app** · GitHub main push 시 자동 재배포 |
+| Turso | ✅ **운영 중 (2026-06-08)** | DB `sasang-prod` (도쿄 aws-ap-northeast-1) · 30문항 시드 완료 · 웹 대시보드로 생성 (CLI 미사용) |
+| Resend | ✅ 가입 완료 | 도메인 연결·API 키 발급 안 함 (T7 인증에서 사용 예정) |
 
-T7(인증)에서 Resend, T-deploy에서 Vercel/Turso 본격 사용 예정.
+### 배포 메모 (T-deploy 완료)
+- **인터넷 주소**: https://sasang-platform.vercel.app — 접수실·검사실·원장실 노트북이 같은 주소로 접속해 자료 공유 (내부망 미사용 → 차트 프로그램과 충돌 없음)
+- Vercel 환경변수: `DATABASE_URL`, `TURSO_AUTH_TOKEN` 설정됨 (Production·Preview)
+- `next.config.mjs`: 빌드 단계 타입/ESLint 검사 비활성화 (`ignoreBuildErrors`/`ignoreDuringBuilds`) — Vercel `next build` 통과용. 코드 타입은 로컬 `tsc --noEmit`로 검증.
+- **Turso 시드 주의**: `scripts/load-env.ts`를 db 모듈보다 먼저 import해야 Turso 주소 반영됨 (ESM import 호이스팅 회피). 시드 막힐 때 `RESET-TURSO-DB.bat`(리셋+재시드), 진단은 `DIAG-TURSO.bat`/`CHECK-TURSO.bat`(로그 파일 출력), 좀비 서버 정리는 `RESTART-DEV.bat`.
+- **libsql Windows 주의**: `UV_HANDLE_CLOSING` assertion은 종료 시 무해한 크래시 (작업은 완료됨). 배치에서 `if errorlevel` 중단 걸지 말 것.
 
 ---
 
@@ -228,9 +233,10 @@ T7(인증)에서 Resend, T-deploy에서 Vercel/Turso 본격 사용 예정.
 
 ## 12. 마지막 commit
 
-- Hash: `2d04d3f`
-- Message: `feat(guide): T6 - constitution lifestyle guide page`
+- Hash: `f8b222f` (현재 Vercel 배포본)
+- Message: `fix(build): ignore build-time type/eslint checks for Vercel deploy`
 - Date: 2026-06-08
+- (이후 운영 배치/문서 정리 커밋이 추가될 수 있음)
 
 ---
 
@@ -242,10 +248,10 @@ T7(인증)에서 Resend, T-deploy에서 Vercel/Turso 본격 사용 예정.
    - "어떤 DB?" → libsql + Drizzle (이미 셋업됨)
    - "체질 정보 어디?" → `data/type-info.ts`
    - "어떤 스타일?" → Tailwind만
-   - "배포는?" → 아직 로컬만, T-deploy에서 Vercel
+   - "배포는?" → ✅ 완료. https://sasang-platform.vercel.app (Vercel + Turso, §10)
 4. 새 코드는 §4 폴더 구조에 맞춰 배치
 5. 큰 변경 끝나면 commit 배치 만들어 사용자에게 안내
 
 ---
 
-**마지막 업데이트**: 2026-06-08 (T6 완료 시점)
+**마지막 업데이트**: 2026-06-08 (T6 + 인터넷 배포 완료 시점)

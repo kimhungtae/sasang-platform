@@ -1,17 +1,22 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { QuestionData } from '@/lib/quiz';
 import { calcScores, calcPartTallies, type AnswersMap, type StageResult } from '@/lib/scoring';
 import { TYPE_INFO, HANYUL_LABEL, CONSTITUTIONS, type Constitution } from '@/data/type-info';
 import { Disclaimer } from '@/components/Disclaimer';
+import { saveIntakeRecord } from '@/app/actions/intake';
+import { PATIENT_KEY, type PatientInfo } from '@/components/quiz/IntakeForm';
 
 type Props = {
   questions: QuestionData[];
+  qnaireId: number;
 };
 
 const STORAGE_KEY = 'sasang-quiz-answers';
+
+type SaveStatus = 'idle' | 'saving' | 'saved' | 'error' | 'anon';
 
 const SECTION_LABEL: Record<string, string> = {
   body: '체형',
@@ -22,19 +27,31 @@ const SECTION_LABEL: Record<string, string> = {
   food: '음식',
 };
 
-export function ResultView({ questions }: Props) {
+export function ResultView({ questions, qnaireId }: Props) {
   const [answers, setAnswers] = useState<AnswersMap | null>(null);
+  const [patient, setPatient] = useState<PatientInfo | null>(null);
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+  const savedOnceRef = useRef(false);
 
   useEffect(() => {
     const stored = sessionStorage.getItem(STORAGE_KEY);
     if (!stored) {
       setAnswers({});
-      return;
+    } else {
+      try {
+        setAnswers(JSON.parse(stored));
+      } catch {
+        setAnswers({});
+      }
     }
-    try {
-      setAnswers(JSON.parse(stored));
-    } catch {
-      setAnswers({});
+    // 검사실 모드: 인적사항이 있으면 저장 대상
+    const p = sessionStorage.getItem(PATIENT_KEY);
+    if (p) {
+      try {
+        setPatient(JSON.parse(p));
+      } catch {
+        setPatient(null);
+      }
     }
   }, []);
 
@@ -57,6 +74,30 @@ export function ResultView({ questions }: Props) {
     if (!answers) return null;
     return calcPartTallies(questions, answers);
   }, [questions, answers]);
+
+  // 검사실 모드: 인적사항이 있으면 결과를 온라인 DB에 1회 저장
+  useEffect(() => {
+    if (savedOnceRef.current) return;
+    if (!answers || !final || final.answered === 0) return;
+    if (!patient || !patient.name?.trim() || !patient.chartNo?.trim()) {
+      setSaveStatus('anon');
+      return;
+    }
+    savedOnceRef.current = true;
+    setSaveStatus('saving');
+    const ageNum = patient.age && patient.age.trim() ? Number(patient.age) : null;
+    saveIntakeRecord({
+      name: patient.name,
+      chartNo: patient.chartNo,
+      gender: patient.gender,
+      age: ageNum !== null && Number.isFinite(ageNum) ? ageNum : null,
+      qnaireId,
+      answers,
+      result: final,
+    })
+      .then((res) => setSaveStatus(res.ok ? 'saved' : 'error'))
+      .catch(() => setSaveStatus('error'));
+  }, [answers, final, patient, qnaireId]);
 
   function resetQuiz() {
     sessionStorage.removeItem(STORAGE_KEY);
@@ -108,6 +149,33 @@ export function ResultView({ questions }: Props) {
             {new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
         </div>
+
+        {/* 검사실 모드: 환자 정보 + 저장 상태 */}
+        {patient && (patient.name || patient.chartNo) && (
+          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-sm text-zinc-800 dark:text-zinc-200">
+              <span className="font-semibold">{patient.name || '—'}</span>
+              <span className="text-zinc-400 mx-2">·</span>
+              <span>차트 {patient.chartNo || '—'}</span>
+              {(patient.gender || patient.age) && (
+                <span className="text-zinc-500 dark:text-zinc-400 ml-2 text-xs">
+                  {patient.gender === 'M' ? '남' : patient.gender === 'F' ? '여' : ''}
+                  {patient.gender && patient.age ? ' · ' : ''}
+                  {patient.age ? `${patient.age}세` : ''}
+                </span>
+              )}
+            </div>
+            <div className="text-xs font-medium">
+              {saveStatus === 'saving' && <span className="text-zinc-500">저장 중…</span>}
+              {saveStatus === 'saved' && (
+                <span className="text-emerald-600 dark:text-emerald-400">✓ 원장실에 저장됨</span>
+              )}
+              {saveStatus === 'error' && (
+                <span className="text-red-600 dark:text-red-400">⚠ 저장 실패 — 다시 시도해주세요</span>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* 히어로 — 판정 체질 */}
         <div

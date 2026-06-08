@@ -16,15 +16,29 @@ export default function HomePage() {
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
           <Link
+            href="/intake"
+            className="group rounded-lg bg-emerald-600 hover:bg-emerald-700 border-2 border-emerald-600 p-6 transition text-white"
+          >
+            <div className="text-2xl mb-2">🏥</div>
+            <h2 className="font-semibold mb-1">검사실 — 환자 접수 설문</h2>
+            <p className="text-sm text-emerald-50/90">
+              이름·차트번호 입력 후 환자가 설문 작성. 결과는 원장실에서 이어봅니다.
+            </p>
+            <div className="mt-3 text-sm font-medium group-hover:underline">
+              환자 접수 시작 →
+            </div>
+          </Link>
+
+          <Link
             href="/quiz"
             className="group rounded-lg bg-white dark:bg-zinc-900 border-2 border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 p-6 transition"
           >
             <div className="text-2xl mb-2">🔍</div>
             <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
-              사상체질 자가진단
+              사상체질 자가진단 (익명)
             </h2>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              28문항 설문으로 사상체질을 가늠해봅니다.
+              30문항 설문으로 사상체질을 가늠해봅니다. (저장 안 됨)
             </p>
             <div className="mt-3 text-sm font-medium text-emerald-600 dark:text-emerald-400 group-hover:underline">
               시작하기 →
