@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { TYPE_INFO, HANYUL_LABEL, CONSTITUTIONS, type Constitution } from '@/data/type-info';
+import { normalizeHanyul } from '@/lib/prescription';
+import { SecondStage } from '@/components/clinic/SecondStage';
+import type { ClinicMemoData } from '@/app/actions/clinic-record';
 
 type SavedResult = {
   top?: Constitution;
@@ -13,13 +16,15 @@ type SavedResult = {
 };
 
 export type RecordViewProps = {
+  recordId: number;
   patient: { name: string; chartNo: string; gender: 'M' | 'F' | null; age: number | null };
   date: number; // epoch ms
   stage: string;
   result: SavedResult;
+  clinicMemo: Record<string, unknown> | null;
 };
 
-export function RecordView({ patient, date, stage, result }: RecordViewProps) {
+export function RecordView({ recordId, patient, date, stage, result, clinicMemo }: RecordViewProps) {
   const top = result.top && TYPE_INFO[result.top] ? result.top : null;
   const info = top ? TYPE_INFO[top] : null;
   const pcts = result.pcts ?? {};
@@ -142,10 +147,14 @@ export function RecordView({ patient, date, stage, result }: RecordViewProps) {
           })}
         </div>
 
-        {/* Phase 3 자리 */}
-        <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 p-5 text-center text-sm text-zinc-400">
-          2차 추가 설문 · 처방 도출은 다음 단계(Phase 3)에서 추가됩니다.
-        </div>
+        {/* Phase 3 — 2차 정밀 진찰 + 처방 도출 */}
+        <SecondStage
+          recordId={recordId}
+          top={top}
+          resultHanyul={normalizeHanyul(result.hanyul)}
+          initialMemo={clinicMemo as ClinicMemoData | null}
+          initialStage={stage}
+        />
 
         {result.answered != null && result.total != null && (
           <div className="text-center text-[10px] text-zinc-400">

@@ -33,14 +33,14 @@
 | T6 | 섭생 가이드 페이지 (`/guide/[constitution]`, 음식·운동·정서·주의 4섹션, 결과지 연결) |
 | T-deploy | **인터넷 배포 완료** — Vercel + Turso, https://sasang-platform.vercel.app (§10) |
 | 진료 Phase 1 | **검사실 환자 접수 + 온라인 저장** (`/intake` 이름·차트번호 입력 → 설문 → Turso 저장) |
+| 진료 Phase 2 | **원장실 조회/이어보기** (`/clinic` 간단 비번 `CLINIC_PIN`, 환자 목록·검색, 1차 결과 재표시) |
+| 진료 Phase 3 (UI) | **2차 정밀 진찰 + 처방 도출 UI** (`/clinic/[recordId]`에 정밀시진·기능검사 입력 + 한열 재확인 + type-info 기반 처방 후보 + stage reviewed/prescribed 저장) — *tsc 검증·커밋 대기, T8 DB 연동은 추후* |
 
 ### ⏳ 남은 작업
 
 | Task | 내용 | 예상 |
 |---|---|---|
-| **진료 Phase 2** | 원장실 조회/이어보기 (간단 비번 잠금, 환자 목록·차트번호 검색, 1차 결과 열람) | 3~4시간 |
-| 진료 Phase 3 | 2차 추가 설문(정밀시진·기능검사) + 처방 도출 — **T8 처방 데이터 선행 필요** | 4~6시간 |
-| T8 | 류주열 처방 352개 ETL (`사상의학/류주열사상처방개정판.xlsx` → DB) | 2~3시간 |
+| T8 | 류주열 처방 352개 ETL (`사상의학/류주열사상처방개정판.xlsx` → DB) → Phase 3 처방 후보에 연동 | 2~3시간 |
 | T10 | 면책·법적 페이지 (PIPA 처리방침 포함) | 1시간 |
 | T11 | README + 운영 문서 | 1시간 |
 
@@ -182,7 +182,34 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-## 9. 작업 큐 (👉 내일 이어서: 진료 Phase 2 — 원장실 조회)
+## 9. 작업 큐 (👉 다음: Phase 3 tsc 검증·커밋 → T8 처방 DB 연동)
+
+### 🔧 진료 Phase 3 — 2차 정밀 진찰 + 처방 도출 UI (2026-06-11, 검증 대기)
+
+- [x] `lib/prescription.ts` — type-info.ts의 rx/rxCold/rxHot 파싱 → 체질+한열 처방 후보 도출(`derivePrescriptions`, `parseRx`, `normalizeHanyul`). 순수 함수(서버/클라 공용). **T8 352개 DB 적재 후 이 함수에서 매칭하도록 확장 예정.**
+- [x] `app/actions/clinic-record.ts` — `saveClinicRecord`(원장실 인증 게이트). `survey_records.clinicMemo`에 2차 소견(정밀시진·기능검사·한열재확인·선택처방·메모) JSON 저장 + `stage` → reviewed/prescribed + revalidatePath.
+- [x] `components/clinic/SecondStage.tsx` — 정밀시진·기능검사 입력, 한열 재확인(1차 자동판정 보정), 처방 후보 카드(처방명 칩 선택), "2차 소견 저장(검토)"/"처방 확정 저장" 버튼, stage 배지.
+- [x] `RecordView.tsx` 자리표시자 → `<SecondStage>` 교체. `app/clinic/[recordId]/page.tsx`에서 `clinicMemo` select 추가 + recordId 전달.
+- [ ] **검증 대기**: `VERIFY-PHASE3.bat` 더블클릭 → `phase3-verify.log` 확인(이번 세션은 Linux 샌드박스 다운으로 Claude가 tsc 직접 실행 불가). 통과 시 `COMMIT-PHASE3.bat`로 커밋·푸시.
+- [ ] **T8 연동 남음**: `류주열사상처방개정판.xlsx`(OneDrive) → `prescriptions` 테이블 적재 후 처방 후보를 352개 실제 처방과 매칭.
+
+
+
+### ✅ 진료 Phase 2 완료 (2026-06-11) — 원장실 조회/이어보기
+
+- [x] 간단 비번 게이트 — `lib/clinic-auth.ts`(쿠키 sha256 토큰) + `app/actions/clinic.ts`
+      (`verifyClinicPin`/`clinicLogout`). 비번은 환경변수 **`CLINIC_PIN`** (.env.local + Vercel 둘 다 설정됨).
+- [x] `/clinic` — 비번 통과 시 환자 기록 목록(차트번호·이름 검색, 체질·날짜) — `app/clinic/page.tsx` + `components/clinic/ClinicList.tsx`
+- [x] `/clinic/[recordId]` — 저장된 `resultJson`으로 1차 결과(체질·한열·신뢰도·분포) 재표시 — `RecordView.tsx`
+- [x] 홈에 "🩺 원장실" 진입점 + 바탕화면 `사상앱` 폴더에 .url 바로가기(검사실·원장실·홈)
+- 검증: tsc 통과 + 배포 사이트 E2E 확인 (원장실 7980 → 김테스트/T0608 → 태음인 결과 재표시 OK)
+
+### ⏳ 진료 Phase 3 시작 시 첫 액션 (2차 설문 + 처방)
+
+1. **T8 먼저**: `사상의학/류주열사상처방개정판.xlsx`(352개) → DB 적재 (`prescriptions` 테이블 이미 schema에 있음).
+2. 원장실 기록 화면(`/clinic/[recordId]`)에 2차 추가 단계(정밀시진·기능검사) 입력 + `survey_records.stage` 갱신.
+3. 체질+한열 기준 처방 후보 도출(`type-info.ts`의 rx/rxCold/rxHot + 류주열 처방 매칭).
+4. (선택) 기록 삭제 기능 — 테스트 기록 김테스트/T0608 정리용.
 
 ### ✅ 진료 Phase 1 완료 (2026-06-08) — 검사실 환자 접수 + 온라인 저장
 
@@ -198,17 +225,11 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 - [x] `ResultView.tsx` — 검사실 모드면 결과 1회 자동 저장 + "✓ 원장실에 저장됨" 배너.
       익명 자가진단(`/quiz` 직접)은 저장 안 함 (PIPA: 익명 유지)
 - [x] 홈에 "🏥 검사실 — 환자 접수 설문" 진입점
-- 검증: tsc 통과 + 배포 사이트에서 E2E 확인 (테스트 기록 **김테스트/차트 T0608** 1건 저장됨 → Phase 2에서 목록 확인·삭제)
-
-### ⏳ 진료 Phase 2 시작 시 첫 액션 (원장실 조회)
-
-1. 원장실 영역 **간단 비번** 잠금 (사용자 요청: 풀 로그인 X, 간단 비번). 환경변수 `CLINIC_PIN` 같은 식 권장.
-2. `/clinic` (또는 `/doctor`) 환자 목록 페이지 — `survey_records` join `patients`, 차트번호·이름·날짜 검색.
-3. 기록 열기 → 저장된 `resultJson`/`answersJson`으로 1차 결과 재표시 (= 검사실 것 이어받기).
-4. (Phase 3 준비) 2차 추가 단계 + 처방. 처방은 T8(`류주열사상처방개정판.xlsx`) DB 적재 선행.
+- 검증: tsc 통과 + 배포 사이트에서 E2E 확인 (테스트 기록 **김테스트/차트 T0608** 1건 — Phase 3 삭제 기능으로 정리 예정)
 
 > 참고: `db.run(sql\`...\`)` 로 직접 SQL 실행 가능. 새 테이블은 `scripts/create-*.ts` + 배치(로그 파일 출력)로
 > 만들고 Claude가 로그를 읽어 확인하는 패턴이 안정적 (stale-mount로 bash tsc는 가짜 에러 잦음 → tsc는 배치로 로그 출력).
+> 비번/토큰 등 비밀값은 Claude가 입력란에 직접 타이핑 X (보안) — 사용자가 Vercel·.env에 직접 입력. CLINIC_PIN도 동일.
 
 ---
 
@@ -240,17 +261,18 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ## 12. 마지막 commit
 
-- Hash: `b514351` (현재 Vercel 배포본 — 진료 Phase 1)
-- Message: `feat(clinic): Phase 1 - patient intake (name/chart) and online save`
-- Date: 2026-06-08
-- (CLAUDE.md 이 업데이트는 아직 커밋 안 됨 — 내일 첫 커밋에 포함하면 됨)
+- Hash: `026c3bf` (현재 Vercel 배포본 — 진료 Phase 2)
+- Message: `feat(clinic): Phase 2 - doctor room record lookup with PIN gate`
+- Date: 2026-06-11
+- Vercel 환경변수: `DATABASE_URL`, `TURSO_AUTH_TOKEN`, `CLINIC_PIN` 모두 설정됨
+- (CLAUDE.md 이 업데이트는 아직 커밋 안 됨 — 다음 커밋에 포함)
 
 ---
 
 ## 13. 새 세션 시작 시 권장 흐름
 
 1. **이 CLAUDE.md를 먼저 읽기** (자동 로드되어 있을 것)
-2. 사용자 요청 듣고 → §9 작업 큐 확인 (현재 다음 작업: T7 인증)
+2. 사용자 요청 듣고 → §9 작업 큐 확인 (현재 다음 작업: 진료 Phase 3 — 2차+처방, T8 선행)
 3. **불필요한 재질문 금지**:
    - "어떤 DB?" → libsql + Drizzle (이미 셋업됨)
    - "체질 정보 어디?" → `data/type-info.ts`
@@ -261,4 +283,4 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-**마지막 업데이트**: 2026-06-08 (인터넷 배포 + 진료 Phase 1 완료 시점)
+**마지막 업데이트**: 2026-06-11 (진료 Phase 2 — 원장실 조회 완료 시점)

@@ -24,6 +24,7 @@ export default async function ClinicRecordPage({ params }: Props) {
       createdAt: schema.surveyRecords.createdAt,
       stage: schema.surveyRecords.stage,
       resultJson: schema.surveyRecords.resultJson,
+      clinicMemo: schema.surveyRecords.clinicMemo,
       name: schema.patients.name,
       chartNo: schema.patients.chartNo,
       gender: schema.patients.gender,
@@ -46,12 +47,23 @@ export default async function ClinicRecordPage({ params }: Props) {
     result = {};
   }
 
+  let clinicMemo: Record<string, unknown> | null = null;
+  if (row.clinicMemo) {
+    try {
+      clinicMemo = JSON.parse(row.clinicMemo);
+    } catch {
+      clinicMemo = null;
+    }
+  }
+
   return (
     <RecordView
+      recordId={id}
       patient={{ name: row.name, chartNo: row.chartNo, gender: row.gender, age: row.age }}
       date={row.createdAt instanceof Date ? row.createdAt.getTime() : Number(row.createdAt) * 1000}
       stage={row.stage}
       result={result}
+      clinicMemo={clinicMemo}
     />
   );
 }
