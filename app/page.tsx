@@ -45,16 +45,32 @@ export default function HomePage() {
             </div>
           </Link>
 
+          <Link
+            href="/clinic"
+            className="group rounded-lg bg-white dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 p-6 transition"
+          >
+            <div className="text-2xl mb-2">🩺</div>
+            <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+              원장실 — 환자 기록 조회
+            </h2>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              검사실에서 접수한 환자 기록 열람 (비밀번호 필요).
+            </p>
+            <div className="mt-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 group-hover:underline">
+              입장 →
+            </div>
+          </Link>
+
           <div className="rounded-lg bg-zinc-100 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 p-6 opacity-60">
             <div className="text-2xl mb-2">📚</div>
             <h2 className="font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-              한의사용 처방 검색
+              처방 검색
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-500">
-              류주열 처방 352개 검색 (한의사 로그인 필요)
+              류주열 처방 352개 검색 (Phase 3)
             </p>
             <div className="mt-3 text-sm font-medium text-zinc-400">
-              T8~T9에서 구현 예정
+              T8 이후 구현 예정
             </div>
           </div>
         </div>

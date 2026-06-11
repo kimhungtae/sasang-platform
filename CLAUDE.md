@@ -31,19 +31,20 @@
 | T4 | 자가진단 UI (`/quiz`, `/quiz/[step]`) |
 | T5 | v24 채점 알고리즘 + 결과지 (Stage 1/2/3, 한열 분기, Bayesian Prior) |
 | T6 | 섭생 가이드 페이지 (`/guide/[constitution]`, 음식·운동·정서·주의 4섹션, 결과지 연결) |
+| T-deploy | **인터넷 배포 완료** — Vercel + Turso, https://sasang-platform.vercel.app (§10) |
+| 진료 Phase 1 | **검사실 환자 접수 + 온라인 저장** (`/intake` 이름·차트번호 입력 → 설문 → Turso 저장) |
 
-### ⏳ 남은 작업 (Phase 1)
+### ⏳ 남은 작업
 
 | Task | 내용 | 예상 |
 |---|---|---|
-| **T7** | Auth.js 인증 (한의사/환자 구분, Resend 이메일) | 3~5시간 |
-| T8 | 류주열 처방 352개 ETL | 2~3시간 |
-| T9 | 처방 검색 페이지 | 3~4시간 |
-| T10 | 면책·법적 페이지 | 1시간 |
+| **진료 Phase 2** | 원장실 조회/이어보기 (간단 비번 잠금, 환자 목록·차트번호 검색, 1차 결과 열람) | 3~4시간 |
+| 진료 Phase 3 | 2차 추가 설문(정밀시진·기능검사) + 처방 도출 — **T8 처방 데이터 선행 필요** | 4~6시간 |
+| T8 | 류주열 처방 352개 ETL (`사상의학/류주열사상처방개정판.xlsx` → DB) | 2~3시간 |
+| T10 | 면책·법적 페이지 (PIPA 처리방침 포함) | 1시간 |
 | T11 | README + 운영 문서 | 1시간 |
-| T12 | Phase 1 검증 (E2E 테스트) | 2시간 |
 
-**진행률**: 6/12 (50%) · 진료실 적용까지 약 2~3주 추정
+**진행률**: 핵심 진료 흐름 1단계까지 완료 · 진료실 적용 임박
 
 ---
 
@@ -181,27 +182,33 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-## 9. 작업 큐 (다음 작업: T7)
+## 9. 작업 큐 (👉 내일 이어서: 진료 Phase 2 — 원장실 조회)
 
-### ✅ T6 완료 (2026-06-08) — 섭생 가이드 페이지
+### ✅ 진료 Phase 1 완료 (2026-06-08) — 검사실 환자 접수 + 온라인 저장
 
-- [x] `data/lifestyle.ts` 작성 — **계획의 .md 4파일 대신 구조화 TS 데이터로 구현**
-      (기존 `type-info.ts` 패턴 일치, 마크다운 렌더러 의존성 회피)
-      4체질 × 4섹션(food/exercise/emotion/caution), `headline`·`keyIndicator` 포함
-- [x] `app/guide/[constitution]/page.tsx` 작성 — 동적 라우트, 체질 컬러 테마,
-      음식 권장/절제 칩, 다른 체질 교차 링크, 잘못된 코드 시 `notFound()` (404)
-- [x] 4섹션 구조: 음식 · 운동 · 정서 · 주의
-- [x] 결과 페이지(`ResultView.tsx`)에서 "더 자세히 보기" CTA로 `/guide/[top]` 연결
-- [ ] (보류) 한의사 상담 CTA — 내부용이라 v2에서 활성화
-- 검증: `tsc --noEmit` 통과, `next lint` 클린. (주의: 이 폴더 node_modules는
-  Windows 설치본이라 Linux 샌드박스에서 `next build`/`tsx` 네이티브 바이너리 실행 불가)
+목표(사용자): 검사실 노트북에서 이름·차트번호 넣고 환자가 1차 설문 → 원장실 노트북에서
+이어받아 2차 + 처방 도출 → 다시 볼 수 있게 저장. (원본 `온누리_사상체질_감별설문지_v24.html`
+= Downloads에 있음, localStorage 기반 단일 브라우저 앱. 이걸 온라인 DB 버전으로 포팅 중.)
 
-### ⏳ T7 시작 시 첫 액션 (인증)
+- [x] DB: `patients`(이름·차트번호·성별·나이), `survey_records`(answersJson·resultJson·stage) 테이블
+      — `db/schema.ts` + `scripts/create-clinic-tables.ts` (CREATE TABLE 직접 SQL, drizzle-kit 회피)
+- [x] `/intake` + `components/quiz/IntakeForm.tsx` — 이름·차트번호 필수, 성별·나이 선택
+      → sessionStorage(`sasang-patient-info`) → `/quiz/1`
+- [x] `app/actions/intake.ts` `saveIntakeRecord` — 차트번호 find-or-create 후 저장 (server action)
+- [x] `ResultView.tsx` — 검사실 모드면 결과 1회 자동 저장 + "✓ 원장실에 저장됨" 배너.
+      익명 자가진단(`/quiz` 직접)은 저장 안 함 (PIPA: 익명 유지)
+- [x] 홈에 "🏥 검사실 — 환자 접수 설문" 진입점
+- 검증: tsc 통과 + 배포 사이트에서 E2E 확인 (테스트 기록 **김테스트/차트 T0608** 1건 저장됨 → Phase 2에서 목록 확인·삭제)
 
-1. `next-auth` + `resend` 설치 (CLAUDE.md §3 예정 의존성)
-2. 한의사/환자 역할 구분 설계 — DB `users` 테이블 확인 (`db/schema.ts`)
-3. Resend: 도메인 연결·API 키 발급부터 (현재 가입만 된 상태, §10)
-4. `.env.local`에 키 추가 (gitignore됨, §11 보안 메모 준수)
+### ⏳ 진료 Phase 2 시작 시 첫 액션 (원장실 조회)
+
+1. 원장실 영역 **간단 비번** 잠금 (사용자 요청: 풀 로그인 X, 간단 비번). 환경변수 `CLINIC_PIN` 같은 식 권장.
+2. `/clinic` (또는 `/doctor`) 환자 목록 페이지 — `survey_records` join `patients`, 차트번호·이름·날짜 검색.
+3. 기록 열기 → 저장된 `resultJson`/`answersJson`으로 1차 결과 재표시 (= 검사실 것 이어받기).
+4. (Phase 3 준비) 2차 추가 단계 + 처방. 처방은 T8(`류주열사상처방개정판.xlsx`) DB 적재 선행.
+
+> 참고: `db.run(sql\`...\`)` 로 직접 SQL 실행 가능. 새 테이블은 `scripts/create-*.ts` + 배치(로그 파일 출력)로
+> 만들고 Claude가 로그를 읽어 확인하는 패턴이 안정적 (stale-mount로 bash tsc는 가짜 에러 잦음 → tsc는 배치로 로그 출력).
 
 ---
 
@@ -233,10 +240,10 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ## 12. 마지막 commit
 
-- Hash: `f8b222f` (현재 Vercel 배포본)
-- Message: `fix(build): ignore build-time type/eslint checks for Vercel deploy`
+- Hash: `b514351` (현재 Vercel 배포본 — 진료 Phase 1)
+- Message: `feat(clinic): Phase 1 - patient intake (name/chart) and online save`
 - Date: 2026-06-08
-- (이후 운영 배치/문서 정리 커밋이 추가될 수 있음)
+- (CLAUDE.md 이 업데이트는 아직 커밋 안 됨 — 내일 첫 커밋에 포함하면 됨)
 
 ---
 
@@ -254,4 +261,4 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-**마지막 업데이트**: 2026-06-08 (T6 + 인터넷 배포 완료 시점)
+**마지막 업데이트**: 2026-06-08 (인터넷 배포 + 진료 Phase 1 완료 시점)
