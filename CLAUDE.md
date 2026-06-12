@@ -40,7 +40,7 @@
 
 | Task | 내용 | 예상 |
 |---|---|---|
-| T8 | 류주열 처방 352개 ETL (`사상의학/류주열사상처방개정판.xlsx` → DB) → Phase 3 처방 후보에 연동 | 2~3시간 |
+| T8후속 | 처방별 적응증·주치 데이터 조사 → `indicationsJson` 적재 → 한열·증상 자동추천 | 2~3시간 |
 | T10 | 면책·법적 페이지 (PIPA 처리방침 포함) | 1시간 |
 | T11 | README + 운영 문서 | 1시간 |
 
@@ -190,8 +190,27 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 - [x] `app/actions/clinic-record.ts` — `saveClinicRecord`(원장실 인증 게이트). `survey_records.clinicMemo`에 2차 소견(정밀시진·기능검사·한열재확인·선택처방·메모) JSON 저장 + `stage` → reviewed/prescribed + revalidatePath.
 - [x] `components/clinic/SecondStage.tsx` — 정밀시진·기능검사 입력, 한열 재확인(1차 자동판정 보정), 처방 후보 카드(처방명 칩 선택), "2차 소견 저장(검토)"/"처방 확정 저장" 버튼, stage 배지.
 - [x] `RecordView.tsx` 자리표시자 → `<SecondStage>` 교체. `app/clinic/[recordId]/page.tsx`에서 `clinicMemo` select 추가 + recordId 전달.
-- [ ] **검증 대기**: `VERIFY-PHASE3.bat` 더블클릭 → `phase3-verify.log` 확인(이번 세션은 Linux 샌드박스 다운으로 Claude가 tsc 직접 실행 불가). 통과 시 `COMMIT-PHASE3.bat`로 커밋·푸시.
+- [x] **검증 완료**: `VERIFY-PHASE3.bat` → `phase3-verify.log` 오류 0 (tsc 통과).
+- [x] **커밋·배포 완료** (2026-06-11): `COMMIT-PHASE3.bat`로 푸시 → Vercel 자동 재배포.
 - [ ] **T8 연동 남음**: `류주열사상처방개정판.xlsx`(OneDrive) → `prescriptions` 테이블 적재 후 처방 후보를 352개 실제 처방과 매칭.
+
+### ✅ T8 완료 (2026-06-12) — 류주열 처방 342개 적재 + 진료화면 연동
+
+> 엑셀 파싱은 Linux 샌드박스 다운으로 사용자 PC 배치 2단계 방식 사용(덤프→시드).
+> 엑셀: `OneDrive/.../사상의학/류주열사상처방개정판.xlsx` (4시트=체질별, 컬럼 No.·처방명·구성(개정)·구성(예전)).
+
+- [x] **덤프**: `scripts/dump-prescriptions.ts`(`// @ts-nocheck`, SheetJS) + `DUMP-PRESCRIPTIONS.bat`(`npm install --no-save xlsx`) → `data/prescriptions-raw.json` + `xlsx-dump.log`.
+- [x] **시드**: `scripts/seed-prescriptions.ts`(prescriptions `CREATE TABLE IF NOT EXISTS` + raw.json 멱등 upsert, id=엑셀 No. L/H/P/R###) + `SEED-PRESCRIPTIONS.bat`. **Turso 적재 완료: 342개 (ty 71·te 131·sy 73·se 67)**.
+- [x] **연동**: `app/clinic/[recordId]/page.tsx`가 판정 체질의 처방을 select → `RecordView`→`SecondStage`. **류주열 처방이 메인(검색: 처방명/약재) + 선택 시 구성 표시·저장(clinicMemo.selectedRxId/Name/Composition)**. 전통 type-info 처방은 하단 "참고"로 접힘.
+- [x] tsc 통과(`phase3-verify.log` 0 오류). 커밋: `COMMIT-T8.bat`.
+- ⚠️ **배치는 ASCII만**(한글 echo 넣으면 cmp 인코딩으로 다음 명령줄까지 깨짐 — 이번에 겪음).
+
+### ⏳ T8 후속 (다음 세션 후보)
+
+- [ ] **처방별 적응증·주치 데이터**: 엑셀엔 적응증/한열 태그가 없어 현재는 검색 기반만 가능.
+      류주열 처방 적응증·주치를 신뢰 가능한 출처에서 조사·정리해 `prescriptions.indicationsJson`에 적재하면,
+      체질+한열+증상 기준 **자동 추천**까지 가능. (사용자 보유 자료 있으면 우선 사용, 없으면 웹 조사 후 원장 검수 필요.)
+- [ ] (선택) 테스트 기록 김테스트/T0608 삭제 기능.
 
 
 
@@ -261,11 +280,10 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ## 12. 마지막 commit
 
-- Hash: `026c3bf` (현재 Vercel 배포본 — 진료 Phase 2)
-- Message: `feat(clinic): Phase 2 - doctor room record lookup with PIN gate`
-- Date: 2026-06-11
+- **다음 액션: `COMMIT-T8.bat` 더블클릭** (tsc 통과 확인됨, 아직 커밋 전).
+- 예정 Message: `feat(clinic): T8 - seed Ryu Ju-yeol 342 prescriptions, prioritize in 2nd stage`
+- 직전 커밋: `feat(clinic): Phase 3 - 2nd-stage exam + prescription derivation` (`COMMIT-PHASE3.bat`, 2026-06-11)
 - Vercel 환경변수: `DATABASE_URL`, `TURSO_AUTH_TOKEN`, `CLINIC_PIN` 모두 설정됨
-- (CLAUDE.md 이 업데이트는 아직 커밋 안 됨 — 다음 커밋에 포함)
 
 ---
 
@@ -283,4 +301,4 @@ COMMIT-*.bat (배치)           # 또는 git add -A && git commit -m "..." && gi
 
 ---
 
-**마지막 업데이트**: 2026-06-11 (진료 Phase 2 — 원장실 조회 완료 시점)
+**마지막 업데이트**: 2026-06-12 (T8 — 류주열 342개 처방 적재·진료화면 연동, 커밋 대기)

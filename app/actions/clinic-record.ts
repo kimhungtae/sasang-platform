@@ -19,6 +19,8 @@ export type ClinicMemoData = {
   functional?: string; // 기능검사 소견
   hanyulConfirm?: 'cold' | 'hot' | 'neutral' | ''; // 원장 한열 재확인 (1차 자동판정 보정)
   selectedRx?: string; // 선택/확정 처방명
+  selectedRxId?: string; // 선택 처방 id (류주열 prescriptions.id, 예: H019)
+  selectedRxComposition?: string; // 선택 처방 구성(개정) 스냅샷
   memo?: string; // 자유 메모
   updatedAt?: number; // epoch ms
 };
@@ -51,6 +53,8 @@ export async function saveClinicRecord(
     functional: (input.memo.functional ?? '').trim() || undefined,
     hanyulConfirm: input.memo.hanyulConfirm || undefined,
     selectedRx: (input.memo.selectedRx ?? '').trim() || undefined,
+    selectedRxId: (input.memo.selectedRxId ?? '').trim() || undefined,
+    selectedRxComposition: (input.memo.selectedRxComposition ?? '').trim() || undefined,
     memo: (input.memo.memo ?? '').trim() || undefined,
     updatedAt: Date.now(),
   };

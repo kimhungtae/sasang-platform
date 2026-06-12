@@ -15,6 +15,13 @@ type SavedResult = {
   coverage?: number;
 };
 
+export type RxOption = {
+  id: string;
+  name: string;
+  current: string | null;
+  legacy: string | null;
+};
+
 export type RecordViewProps = {
   recordId: number;
   patient: { name: string; chartNo: string; gender: 'M' | 'F' | null; age: number | null };
@@ -22,9 +29,10 @@ export type RecordViewProps = {
   stage: string;
   result: SavedResult;
   clinicMemo: Record<string, unknown> | null;
+  prescriptions: RxOption[];
 };
 
-export function RecordView({ recordId, patient, date, stage, result, clinicMemo }: RecordViewProps) {
+export function RecordView({ recordId, patient, date, stage, result, clinicMemo, prescriptions }: RecordViewProps) {
   const top = result.top && TYPE_INFO[result.top] ? result.top : null;
   const info = top ? TYPE_INFO[top] : null;
   const pcts = result.pcts ?? {};
@@ -154,6 +162,7 @@ export function RecordView({ recordId, patient, date, stage, result, clinicMemo 
           resultHanyul={normalizeHanyul(result.hanyul)}
           initialMemo={clinicMemo as ClinicMemoData | null}
           initialStage={stage}
+          prescriptions={prescriptions}
         />
 
         {result.answered != null && result.total != null && (

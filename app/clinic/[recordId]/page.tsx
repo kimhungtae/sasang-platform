@@ -56,6 +56,32 @@ export default async function ClinicRecordPage({ params }: Props) {
     }
   }
 
+  // 판정 체질의 류주열 처방 목록 (메인 처방 후보)
+  const topConstitution =
+    typeof result.top === 'string' &&
+    (['ty', 'te', 'sy', 'se'] as const).includes(result.top as 'ty' | 'te' | 'sy' | 'se')
+      ? (result.top as 'ty' | 'te' | 'sy' | 'se')
+      : null;
+
+  let prescriptions: {
+    id: string;
+    name: string;
+    current: string | null;
+    legacy: string | null;
+  }[] = [];
+  if (topConstitution) {
+    const rxRows = await db
+      .select({
+        id: schema.prescriptions.id,
+        name: schema.prescriptions.name,
+        current: schema.prescriptions.compositionCurrent,
+        legacy: schema.prescriptions.compositionLegacy,
+      })
+      .from(schema.prescriptions)
+      .where(eq(schema.prescriptions.constitution, topConstitution));
+    prescriptions = rxRows;
+  }
+
   return (
     <RecordView
       recordId={id}
@@ -64,6 +90,7 @@ export default async function ClinicRecordPage({ params }: Props) {
       stage={row.stage}
       result={result}
       clinicMemo={clinicMemo}
+      prescriptions={prescriptions}
     />
   );
 }

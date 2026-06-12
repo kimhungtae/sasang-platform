@@ -13,7 +13,8 @@
     "db:push": "drizzle-kit push",
     "seed:questionnaire": "tsx scripts/seed-questionnaire.ts",
     "reset:questionnaire": "tsx scripts/reset-questionnaire.ts",
-    "create:clinic": "tsx scripts/create-clinic-tables.ts"
+    "create:clinic": "tsx scripts/create-clinic-tables.ts",
+    "seed:prescriptions": "tsx scripts/seed-prescriptions.ts"
   },
   "dependencies": {
     "react": "^18",
